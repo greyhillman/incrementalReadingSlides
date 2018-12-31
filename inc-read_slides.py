@@ -2,6 +2,7 @@ import argparse
 import subprocess
 import itertools
 import os
+import sys
 
 
 parser = argparse.ArgumentParser()
@@ -17,12 +18,11 @@ code = subprocess.run(['convert', '-density', args.density, args.pdf, f"{directo
 
 if code.returncode != 0:
     print("Failed to convert files")
-    system.exit(-1)
+    sys.exit(-1)
 
 # move the jpgs into Anki media folder
 max_file_name = None
 try:
-    #import pdb; pdb.set_trace()
     for i in itertools.count(0):
         file_name = f"{output_name}-{i}.jpg"
         os.replace(f"{directory}/{file_name}", f"{anki_directory}/{file_name}")
